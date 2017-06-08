@@ -32,7 +32,6 @@
 		</CoreCompileDependsOn>
 		<ThisProjectInfoFile>$(IntermediateOutputPath)ThisAssembly.Project.g$(DefaultLanguageSourceExtension)</ThisProjectInfoFile>
 		<ThisProjectPropertiesFile>$(IntermediateOutputPath)ThisAssembly.ProjectProperties.g$(DefaultLanguageSourceExtension)</ThisProjectPropertiesFile>
-		<ProjectGuidString Condition="'$(ProjectGuidString)' == ''">$([System.Guid]::Parse($(ProjectGuid)).ToString())</ProjectGuidString>
 	</PropertyGroup>
 
 	<Target Name="ThisProjectInfo" DependsOnTargets="_GenerateProjectInfo;_IntrospectProjectProperties;_GenerateProjectProperties"
@@ -66,7 +65,6 @@
 			<_ThisProjectInfoContent>$(_ThisProjectInfoContent.Replace('_RootNamespace_', '$(ThisAssemblyNamespace)'))</_ThisProjectInfoContent>
 			<_ThisProjectInfoContent>$(_ThisProjectInfoContent.Replace('$RootNamespace$', '$(RootNamespace)'))</_ThisProjectInfoContent>
 			<_ThisProjectInfoContent>$(_ThisProjectInfoContent.Replace('$AssemblyName$', '$(AssemblyName)'))</_ThisProjectInfoContent>
-			<_ThisProjectInfoContent>$(_ThisProjectInfoContent.Replace('$ProjectGuid$', '$(ProjectGuid)'))</_ThisProjectInfoContent>
 			<_ThisProjectInfoContent>$(_ThisProjectInfoContent.Replace('$TargetFrameworkVersion$', '$(TargetFrameworkVersion)'))</_ThisProjectInfoContent>
 			<_ThisProjectInfoContent>$(_ThisProjectInfoContent.Replace('$TargetFrameworkIdentifier$', '$(TargetFrameworkIdentifier)'))</_ThisProjectInfoContent>
 			<_ThisProjectInfoContent>$(_ThisProjectInfoContent.Replace('$TargetFrameworkMoniker$', '$(TargetFrameworkMoniker)'))</_ThisProjectInfoContent>
@@ -139,7 +137,7 @@ namespace $(ThisAssemblyNamespace)
 		<!-- Write property -->
 		<WriteLinesToFile Lines='				  
 				/// &lt;summary&gt;$(PropertyName)=$(PropertyValue)&lt;/summary&gt;
-				public const string $(PropertyName) = "$(PropertyValue)"%3B
+				public const string $(PropertyName) = @"$(PropertyValue)"%3B
 ' Overwrite='false' File='$(ThisProjectPropertiesFile)' />
 	</Target>
 
